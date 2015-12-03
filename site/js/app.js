@@ -1,6 +1,6 @@
 import {Video} from './video';
 import {Emotion} from './emotion';
-
+import {EC} from './emotionCalculation'
 export class App {
 
   constructor(config={}) {
@@ -33,7 +33,15 @@ export class App {
     this.video.start();
 
     setInterval(function() {
-      this.currentEmotion = this.calcCurrentEmotion(this.averageEmotion);
+      var currentEmotion = EC.calcCurrentEmotion(this.averageEmotion);
+
+      if (currentEmotion.emotion !== this.currentEmotion.emotion) {
+        // dispatch event
+        var evt = new CustomEvent('emotionChange', {detail: currentEmotion});
+        window.dispatchEvent(evt);
+      }
+
+      this.currentEmotion = currentEmotion
     }.bind(this), 1000);
 
   }
@@ -45,53 +53,21 @@ export class App {
     }.bind(this));
 
     this.video.overlayCC.clearRect(0, 0, 400, 300);
-    //psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
     if (this.ctracker.getCurrentPosition()) {
       this.ctracker.draw(overlay);
     }
-    var cp = this.ctracker.getCurrentParameters();
 
+    var cp = this.ctracker.getCurrentParameters();
     var er = this.ec.meanPredict(cp);
 
     if (er) {
 
       this.emotions = er;
-      // this.currentEmotion = this.checkCurrentEmotion(er);
 
-      this.averageEmotion.push(this.checkCurrentEmotion(er));
+      this.averageEmotion.push(EC.checkCurrentEmotion(er));
       this.averageEmotion.shift();
 
-      document.getElementById('emotions').innerHTML = this.currentEmotion;
-
     }
-
-
-  }
-
-  calcCurrentEmotion(emotionArr) {
-
-    var emotionObject = emotionArr.reduce(function(init, arr, index) {
-      if (init[arr]) {
-        init[arr]++
-      } else {
-        init[arr] = 1;
-      }
-      return init
-    }, {});
-
-    return Object.keys(emotionObject).sort(function(a, b) {
-      return a - b
-    })[0];
-
-  }
-
-  checkCurrentEmotion(er) {
-
-    er.sort(function(a, b) {
-      return b.value - a.value;
-    });
-
-    return er[0].emotion;
 
   }
 
