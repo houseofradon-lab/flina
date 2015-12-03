@@ -66,12 +66,13 @@
 		text-align: center;
 		margin-bottom: 200px;
 
-		a {
+		span {
 			font-size: 24px;
 			text-decoration: none;
 			color: black;
 			padding-bottom: 8px;
 			border-bottom: 1px solid #009b81;
+			cursor: pointer;
 		}
 
 		textarea {
@@ -80,6 +81,7 @@
 			margin: 100px auto 0 auto;
 			resize: none;
 			border: none;
+			font-family: 'whoismono';
 			font-size: 20px;
 			line-height: 38px;
 			background-image: linear-gradient(white, white 36px, black 36px, black 38px, white 38px);

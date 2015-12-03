@@ -8,13 +8,17 @@ export class LandingPage {
 
   init() {
 
+    document.getElementById('launch-button').addEventListener('click', function() {
 
-  }
+      var evt = new CustomEvent('start');
+      window.dispatchEvent(evt);
 
-  show() {
+    });
 
-    this.dom.style.display = 'block';
-    
+    document.getElementById('textbox').addEventListener('focus', function() {
+      this.innerHTML = '';
+    });
+
   }
 
 }

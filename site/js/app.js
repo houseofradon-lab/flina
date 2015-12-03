@@ -20,7 +20,7 @@ export class App {
     this.ctracker = new clm.tracker();
 
     this.landingPage = new LandingPage();
-    this.landingPage.show();
+    this.landingPage.init();
 
   }
 
