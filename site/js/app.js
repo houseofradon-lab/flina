@@ -1,6 +1,8 @@
 import {Video} from './video';
 import {Emotion} from './emotion';
-import {EC} from './emotionCalculation'
+import {EC} from './emotionCalculation';
+import {LandingPage} from './landingPage';
+
 export class App {
 
   constructor(config={}) {
@@ -13,12 +15,12 @@ export class App {
     this.averageEmotion = new Array(100);
 
     this.video = new Video()
+
     this.ec = new Emotion();
     this.ctracker = new clm.tracker();
 
-    // update stats on every iteration
-    document.addEventListener('clmtrackrIteration', function(event) {
-    }, false);
+    this.landingPage = new LandingPage();
+    this.landingPage.show();
 
   }
 
@@ -54,7 +56,7 @@ export class App {
 
     this.video.overlayCC.clearRect(0, 0, 400, 300);
     if (this.ctracker.getCurrentPosition()) {
-      this.ctracker.draw(overlay);
+      this.ctracker.draw(this.video.overlay);
     }
 
     var cp = this.ctracker.getCurrentParameters();

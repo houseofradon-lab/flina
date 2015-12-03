@@ -2,9 +2,24 @@ export class Video {
 
   constructor(videoId='video', overlayId='overlay') {
 
-    this.videoElement = document.getElementById(videoId);
-    this.overlay = document.getElementById(overlayId);
-		this.overlayCC = overlay.getContext('2d');
+    // this.videoElement = document.getElementById(videoId);
+    // this.overlay = document.getElementById(overlayId);
+
+    this.videoElement = document.createElement('video');
+    this.videoElement.setAttribute('width', '400px');
+    this.videoElement.setAttribute('height', '300px');
+    this.videoElement.style.display = 'none';
+
+    this.overlay = document.createElement('canvas');
+    this.overlay.setAttribute('width', '400px');
+    this.overlay.setAttribute('height', '300px');
+    this.overlay.style.display = 'none';
+
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(this.videoElement);
+    body.appendChild(this.overlay);
+
+		this.overlayCC = this.overlay.getContext('2d');
 
   }
 
