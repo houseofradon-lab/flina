@@ -1,10 +1,9 @@
 export class App {
 
   constructor(videoId='video', overlayId='overlay') {
-    console.log('init');
     this.videoElement = document.getElementById(videoId);
     this.overlay = document.getElementById(overlayId);
-		this.overlayCC = overlay.getContext('2d');
+    this.overlayCC = overlay.getContext('2d');
     this.startWebcam();
   }
 
