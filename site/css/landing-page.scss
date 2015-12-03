@@ -1,0 +1,38 @@
+#landing-page {
+	max-width: 1024px;
+	margin: auto;
+
+	.top {
+		width: 900px;
+		margin: auto;
+
+		h3 {
+			display: block;
+			font-size: 40px;
+			text-align: center;
+			margin-top: 65px;
+			margin-bottom: 70px;
+		}
+
+		.kanye {
+			width: 430px;
+			height: 430px;
+			border-radius: 430px;
+			background-image: url('/assets/img/kanye.jpg');
+			background-size: 100%;
+			margin: 0 auto 26px auto;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 95px;
+			border-bottom: 1px solid black;
+			margin: 0;
+
+			span {
+				font-family: futura;
+				line-height: 136px;
+			}
+		}
+	}
+}

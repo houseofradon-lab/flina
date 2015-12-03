@@ -27,7 +27,7 @@ module.exports = {
     },
     src: src + '/js/main.js',
     dest: dest + '/js',
-    outputName: 'main.js',
+    outputName: 'Main.js',
     debug: gutil.env.type === 'dev'
   },
   html: {
@@ -35,15 +35,15 @@ module.exports = {
     dest: dest
   },
   assets: {
-    src: 'src/assets',
+    src: src + '/assets',
     dest: dest
   },
   vendor: {
-    src: src +'/vendor',
+    src: src + '/vendor',
     dest: dest
   },
   watch: {
-    src: src +' /**/*.*',
+    src: src + '/**/*.*',
     tasks: ['build']
   }
 };

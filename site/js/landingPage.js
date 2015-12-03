@@ -8,7 +8,6 @@ export class LandingPage {
 
   init() {
 
-  
 
   }
 
