@@ -75,19 +75,22 @@
 			cursor: pointer;
 		}
 
-		textarea {
+		#textbox {
 			display: block;
 			width: 640px;
+			height: 180px;
 			margin: 100px auto 0 auto;
-			resize: none;
-			border: none;
 			font-family: 'whoismono';
 			font-size: 20px;
 			line-height: 38px;
 			background-image: linear-gradient(white, white 36px, black 36px, black 38px, white 38px);
 			background-size: 100% 38px;
 			text-align: left;
-			overflow: auto;
+			overflow: hidden;
+
+			&:focus {
+				outline: none;
+			}
 		}
 
 	}

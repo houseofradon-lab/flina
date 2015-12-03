@@ -4,6 +4,8 @@ export class LandingPage {
 
     this.dom = document.getElementById('landing-page');
 
+    this.selectedDomElement = null;
+
   }
 
   init() {
@@ -13,11 +15,16 @@ export class LandingPage {
       var evt = new CustomEvent('start');
       window.dispatchEvent(evt);
 
+      document.getElementById('textbox').setAttribute('contenteditable', true);
+
     });
 
-    document.getElementById('textbox').addEventListener('focus', function() {
-      this.innerHTML = '';
-    });
+    document.getElementById('textbox').addEventListener('focus', function(e) {
+      e.target.innerHTML = '';
+
+      this.selectedDomElement = e.target;
+
+    }.bind(this));
 
   }
 
