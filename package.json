@@ -1,0 +1,19 @@
+{
+  "name": "flina",
+  "version": "1.0.0",
+  "description": "browser extension that translates your real emotions to the web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/houseofradon-lab/flina.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/houseofradon-lab/flina/issues"
+  },
+  "homepage": "https://github.com/houseofradon-lab/flina#readme"
+}
