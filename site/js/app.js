@@ -32,6 +32,10 @@ export class App {
 
     this.video.start();
 
+    setInterval(function() {
+      this.currentEmotion = this.calcCurrentEmotion(this.averageEmotion);
+    }.bind(this), 1000);
+
   }
 
   startDrawLoop() {
@@ -61,6 +65,23 @@ export class App {
 
     }
 
+
+  }
+
+  calcCurrentEmotion(emotionArr) {
+
+    var emotionObject = emotionArr.reduce(function(init, arr, index) {
+      if (init[arr]) {
+        init[arr]++
+      } else {
+        init[arr] = 1;
+      }
+      return init
+    }, {});
+
+    return Object.keys(emotionObject).sort(function(a, b) {
+      return a - b
+    })[0];
 
   }
 
