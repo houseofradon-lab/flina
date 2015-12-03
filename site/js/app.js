@@ -20,7 +20,7 @@ export class App {
     this.ec = new Emotion();
     this.ctracker = new clm.tracker();
     this.landingPage = new LandingPage();
-    this.landingPage.show();
+    this.landingPage.init();
 
     this.logo = new Logo();
     this.logo.run(27, []);

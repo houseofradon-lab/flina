@@ -17,3 +17,7 @@ body {
 	font-family: 'whoismono';
 	font-weight: 100 !important;
 }
+
+textarea:focus, input:focus{
+    outline: 0;
+}
