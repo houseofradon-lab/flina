@@ -1,42 +1,98 @@
+import {Video} from './video';
+import {Emotion} from './emotion';
+
 export class App {
 
-  constructor(videoId='video', overlayId='overlay') {
-    this.videoElement = document.getElementById(videoId);
-    this.overlay = document.getElementById(overlayId);
-    this.overlayCC = overlay.getContext('2d');
-    this.startWebcam();
+  constructor(config={}) {
+
+    this.config = config;
+
+    this.emotions = [];
+    this.currentEmotion = '';
+
+    this.averageEmotion = new Array(100);
+
+    this.video = new Video()
+    this.ec = new Emotion();
+    this.ctracker = new clm.tracker();
+
+    // update stats on every iteration
+    document.addEventListener('clmtrackrIteration', function(event) {
+    }, false);
+
   }
 
-  startWebcam() {
+  init() {
 
-    navigator.getUserMedia = navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia ||
-          navigator.msGetUserMedia;
+    this.ec.init(emotionModel);
+    var emotionData = this.ec.getBlank();
 
-    window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
-    if (navigator.getUserMedia) {
+    this.ctracker.init(pModel);
+    this.ctracker.start(this.video.videoElement);
 
-      var videoSelector = {video : true};
-      if (window.navigator.appVersion.match(/Chrome\/(.*?) /)) {
-        var chromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
-        if (chromeVersion < 20) {
-          videoSelector = 'video';
-        }
-      };
+    this.video.start();
 
-      navigator.getUserMedia(videoSelector, function( stream ) {
-        if (this.videoElement.mozCaptureStream) {
-          this.videoElement.mozSrcObject = stream;
-        } else {
-          this.videoElement.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
-        }
-        this.videoElement.play();
-      }.bind(this), function() {
-        alert('Something went bad');
-      });
-    } else {
-      alert('Browser does not support getUserMedia.');
+    setInterval(function() {
+      this.currentEmotion = this.calcCurrentEmotion(this.averageEmotion);
+    }.bind(this), 1000);
+
+  }
+
+  startDrawLoop() {
+
+    requestAnimationFrame(function() {
+      this.startDrawLoop();
+    }.bind(this));
+
+    this.video.overlayCC.clearRect(0, 0, 400, 300);
+    //psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
+    if (this.ctracker.getCurrentPosition()) {
+      this.ctracker.draw(overlay);
     }
+    var cp = this.ctracker.getCurrentParameters();
+
+    var er = this.ec.meanPredict(cp);
+
+    if (er) {
+
+      this.emotions = er;
+      // this.currentEmotion = this.checkCurrentEmotion(er);
+
+      this.averageEmotion.push(this.checkCurrentEmotion(er));
+      this.averageEmotion.shift();
+
+      document.getElementById('emotions').innerHTML = this.currentEmotion;
+
+    }
+
+
   }
+
+  calcCurrentEmotion(emotionArr) {
+
+    var emotionObject = emotionArr.reduce(function(init, arr, index) {
+      if (init[arr]) {
+        init[arr]++
+      } else {
+        init[arr] = 1;
+      }
+      return init
+    }, {});
+
+    return Object.keys(emotionObject).sort(function(a, b) {
+      return a - b
+    })[0];
+
+  }
+
+  checkCurrentEmotion(er) {
+
+    er.sort(function(a, b) {
+      return b.value - a.value;
+    });
+
+    return er[0].emotion;
+
+  }
+
 }
