@@ -2,6 +2,8 @@ import {Video} from './video';
 import {Emotion} from './emotion';
 import {EC} from './emotionCalculation';
 import {LandingPage} from './landingPage';
+import {Overlay} from './overlay';
+import {Logo} from './logo';
 
 export class App {
 
@@ -15,12 +17,13 @@ export class App {
     this.averageEmotion = new Array(100);
 
     this.video = new Video()
-
     this.ec = new Emotion();
     this.ctracker = new clm.tracker();
-
     this.landingPage = new LandingPage();
     this.landingPage.show();
+
+    this.logo = new Logo();
+    this.logo.run(27, []);
 
   }
 
