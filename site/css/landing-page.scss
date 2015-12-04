@@ -87,6 +87,8 @@
 			background-size: 100% 38px;
 			text-align: left;
 			overflow: hidden;
+			resize: none;
+			border: none;
 
 			&:focus {
 				outline: none;

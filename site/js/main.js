@@ -14,24 +14,25 @@ window.onload = function() {
     if (app.landingPage.selectedDomElement) {
 
     	var emoji = {
-    		happy: '&#x1f471;',
-  			sad: ':(',
-  			angry: '>:(',
-  			surprised: ':O'
+    		happy: ' 😀 ',
+  			sad: ' 😢 ',
+  			angry: ' 😡 ',
+  			surprised: ' 😱 '
     	}
 
-    	app.landingPage.selectedDomElement.innerText += ' ' + emoji[e.detail.emotion] + ' ';
+    	app.landingPage.selectedDomElement.value += emoji[e.detail.emotion];
 
-    	var node = app.landingPage.selectedDomElement;
-		node.focus();
-		var textNode = node.firstChild;
-		var caret = node.innerText.length;
-		var range = document.createRange();
-		range.setStart(textNode, caret);
-		range.setEnd(textNode, caret);
-		var sel = window.getSelection();
-		sel.removeAllRanges();
-		sel.addRange(range);
+  		// var node = app.landingPage.selectedDomElement;
+		// node.focus();
+		// var textNode = node.firstChild;
+		// var caret = node.innerHTML.length;
+		// var range = document.createRange();
+		// console.log(range);
+		// range.setStart(textNode, caret);
+		// range.setEnd(textNode, caret);
+		// var sel = window.getSelection();
+		// sel.removeAllRanges();
+		// sel.addRange(range);
 
     }
 
