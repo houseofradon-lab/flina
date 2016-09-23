@@ -23,7 +23,7 @@ export class App {
     this.landingPage.init();
 
     this.logo = new Logo();
-    this.logo.run(27, []);
+    //this.logo.run(27, []);
 
   }
 
